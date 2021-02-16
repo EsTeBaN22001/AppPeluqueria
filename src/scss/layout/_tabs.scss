@@ -13,5 +13,10 @@
         &:hover{
             cursor: pointer;
         }
+
+        &.actual{
+            background: $azul;
+            color: $blanco;
+        }
     }
 }
