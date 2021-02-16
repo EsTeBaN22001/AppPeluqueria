@@ -32,9 +32,9 @@ body{
     .seccion {
         display: none;
         margin-top: $separacion/2;
-
-        &:nth-last-of-type(3){
-            display: block;
-        }
     }
+}
+
+.mostrar-seccion{
+    display: block !important;
 }
