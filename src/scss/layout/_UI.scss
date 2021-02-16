@@ -27,4 +27,14 @@ body{
     width: 95%;
     margin:  0 auto;
     padding-top: $separacion/2;
+    height: 100%;
+
+    .seccion {
+        display: none;
+        margin-top: $separacion/2;
+
+        &:nth-last-of-type(3){
+            display: block;
+        }
+    }
 }
