@@ -1,8 +1,8 @@
 const { src, dest, watch , parallel } = require('gulp');
 const sass = require('gulp-sass');
 const autoprefixer = require('autoprefixer');
-const postcss    = require('gulp-postcss')
-const sourcemaps = require('gulp-sourcemaps')
+const postcss    = require('gulp-postcss');
+const sourcemaps = require('gulp-sourcemaps');
 const cssnano = require('cssnano');
 const concat = require('gulp-concat');
 const terser = require('gulp-terser-js');
@@ -24,7 +24,6 @@ function css() {
         .pipe(sourcemaps.init())
         .pipe(sass())
         .pipe(postcss([autoprefixer(), cssnano()]))
-        // .pipe(postcss([autoprefixer()]))
         .pipe(sourcemaps.write('.'))
         .pipe( dest('./build/css') );
 }
@@ -35,8 +34,8 @@ function javascript() {
       .pipe(sourcemaps.init())
       .pipe(concat('bundle.js')) // final output file name
       .pipe(terser())
-      .pipe(sourcemaps.write('.'))
       .pipe(rename({ suffix: '.min' }))
+      .pipe(sourcemaps.write('.'))
       .pipe(dest('./build/js'))
 }
 
@@ -61,7 +60,8 @@ function watchArchivos() {
     watch( paths.imagenes, imagenes );
     watch( paths.imagenes, versionWebp );
 }
-  
+
 exports.css = css;
+exports.javascript = javascript;
 exports.watchArchivos = watchArchivos;
-exports.default = parallel(css, javascript,  imagenes, versionWebp, watchArchivos ); 
+exports.default = parallel(css, javascript,  imagenes, versionWebp ); 
