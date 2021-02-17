@@ -12,8 +12,9 @@ body{
     .imagen{
         background-image: url(../img/1.jpg);
         background-size: cover;
-        background-position: center center;
-        height: 30rem;
+        // background-position: center center;
+        background-repeat: no-repeat;
+        // height: 30rem;
         margin: 3rem;
 
         @include tablet{
