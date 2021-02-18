@@ -12,10 +12,6 @@ function iniciarApp(){
 
     // Mostrar u ocultar una sección segun el tab que se presiona
     cambiarSeccion();
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 
     // paginación Siguiente/Anterior
     paginaSiguiente();
@@ -23,8 +19,6 @@ function iniciarApp(){
 
     // Comprueba la página actual para ocultar o mostrar la paginación
     botonesPaginador();
->>>>>>> newFeature
->>>>>>> 4ea48234dfe5ae363f7a27076903487bea573920
 }
 
 function mostrarSeccion(){
@@ -119,10 +113,6 @@ function seleccionarServicio(e){
     }else{
         elemento.classList.add('seleccionado');
     }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 }
 
 function mostrarSeccion(){
@@ -200,6 +190,4 @@ function botonesPaginador() {
 
     mostrarSeccion(); //Cambia la sección que se muestra por la de la página acutal
     cambiarSeccion();
->>>>>>> newFeature
->>>>>>> 4ea48234dfe5ae363f7a27076903487bea573920
 }
