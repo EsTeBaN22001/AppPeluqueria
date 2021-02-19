@@ -32,6 +32,12 @@ function iniciarApp(){
 
     // Almacena el nombre de la cita en el objeto
     nombreCita();
+
+    // Almacena la fecha de la cita en el objeto
+    fechaCita();
+
+    // Deshabilitar dias anteriores
+    deshabilitarFechaAnterior();
 }
 
 function mostrarSeccion(){
@@ -261,6 +267,7 @@ function nombreCita(){
             if (alerta) {
                 alerta.remove();
             }
+            cita.nombre = nombreInput.value;
         }
     })
 }
@@ -290,4 +297,35 @@ function mostrarAlerta(mensaje, tipo){
     setTimeout(() => {
         alerta.remove();
     }, 3000);
+}
+
+function fechaCita(){
+    const fechaInput = document.querySelector('#fecha');
+
+    fechaInput.addEventListener('input', e => {
+
+        const fecha = new Date(e.target.value).getUTCDay();
+
+        if([0, 6].includes(fecha)){
+            e.preventDefault();
+            fechaInput.value = '';
+            mostrarAlerta('Los fines de semana no están disponibles para reservar', 'error');
+        }else{
+            cita.fecha = fechaInput.value;
+        }
+    })
+}
+
+function deshabilitarFechaAnterior(){
+    const fechaInput = document.querySelector('#fecha');
+
+    const fechaAhora = new Date();
+    const year = fechaAhora.getFullYear();
+    const mes = fechaAhora.getMonth() + 1;
+    const dia = fechaAhora.getDate() + 1;
+
+    const fechaDeshabilitar = `${year}-${mes < 10 ? `0${mes}` : mes}-${dia}`;
+
+    fechaInput.min = fechaDeshabilitar;
+    console.log(fechaDeshabilitar);
 }
