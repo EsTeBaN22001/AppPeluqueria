@@ -1,5 +1,12 @@
 let pagina = 1;
 
+const cita = {
+    nombre: '',
+    fecha: '',
+    hora: '',
+    servicios: []
+}
+
 document.addEventListener('DOMContentLoaded', function(){
     iniciarApp();
 })
@@ -19,6 +26,9 @@ function iniciarApp(){
 
     // Comprueba la página actual para ocultar o mostrar la paginación
     botonesPaginador();
+
+    // Mostrar resumen de la cita (o error en caso de que no haya pasado la validación )
+    mostrarResumen();
 }
 
 function mostrarSeccion(){
@@ -110,9 +120,37 @@ function seleccionarServicio(e){
 
     if(elemento.classList.contains('seleccionado')){
         elemento.classList.remove('seleccionado');
+
+        const id = parseInt(elemento.dataset.idServicio);
+
+        eliminarServicio(id);
     }else{
         elemento.classList.add('seleccionado');
+
+        const servicioObj = {
+            id: parseInt(elemento.dataset.idServicio),
+            nombre: elemento.firstElementChild.textContent,
+            precio: elemento.firstElementChild.nextElementSibling.textContent
+        }
+
+        agregarServicio(servicioObj);
     }
+}
+
+function eliminarServicio(id) {
+    const {servicios} = cita;
+    cita.servicios = servicios.filter(servicio => servicio.id !== id);
+
+    console.table(cita.servicios);
+}
+
+function agregarServicio(servicioObj) {
+    // Destructuring
+    const{servicios} = cita;
+
+    cita.servicios = [...servicios, servicioObj];
+
+    console.table(cita.servicios);
 }
 
 function mostrarSeccion(){
@@ -190,4 +228,22 @@ function botonesPaginador() {
 
     mostrarSeccion(); //Cambia la sección que se muestra por la de la página acutal
     cambiarSeccion();
+}
+
+function mostrarResumen(){
+    // Destructuring
+    const{nombre, fecha, hora, servicios} = cita;
+
+    // Seleccionar la sección de resumen
+    const resumenDiv = document.querySelector('.contenido-resumen');
+
+    // Validación de objeto
+    if (Object.values(cita).includes('')) {
+        const noServicios = document.createElement('p');
+        noServicios.classList.add('invalidar-cita');
+        noServicios.textContent = 'Faltan datos de servicios, hora, fecha  o nombre';
+
+        // Agregar noServicios a ResumenDiv
+        resumenDiv.appendChild(noServicios);
+    }
 }
