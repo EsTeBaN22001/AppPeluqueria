@@ -29,6 +29,9 @@ function iniciarApp(){
 
     // Mostrar resumen de la cita (o error en caso de que no haya pasado la validación )
     mostrarResumen();
+
+    // Almacena el nombre de la cita en el objeto
+    nombreCita();
 }
 
 function mostrarSeccion(){
@@ -140,8 +143,6 @@ function seleccionarServicio(e){
 function eliminarServicio(id) {
     const {servicios} = cita;
     cita.servicios = servicios.filter(servicio => servicio.id !== id);
-
-    console.table(cita.servicios);
 }
 
 function agregarServicio(servicioObj) {
@@ -149,8 +150,6 @@ function agregarServicio(servicioObj) {
     const{servicios} = cita;
 
     cita.servicios = [...servicios, servicioObj];
-
-    console.table(cita.servicios);
 }
 
 function mostrarSeccion(){
@@ -246,4 +245,49 @@ function mostrarResumen(){
         // Agregar noServicios a ResumenDiv
         resumenDiv.appendChild(noServicios);
     }
+}
+
+function nombreCita(){
+    const nombreInput = document.querySelector('#nombre');
+
+    nombreInput.addEventListener('input', e => {
+        const nombreTexto = e.target.value.trim();
+
+        // Validación de que nombreTexto debe tener algo
+        if(nombreTexto === '' || nombreTexto.length < 3){
+            mostrarAlerta('Nombre invalido', 'error');
+        }else{
+            const alerta = document.querySelector('.alerta');
+            if (alerta) {
+                alerta.remove();
+            }
+        }
+    })
+}
+
+function mostrarAlerta(mensaje, tipo){
+
+    // Si hay una alerta previa no crear otra
+    const alertaPrevia = document.querySelector('.alerta');
+    if (alertaPrevia) {
+        return;
+    }
+
+    const alerta = document.createElement('div');
+    alerta.textContent = mensaje;
+    alerta.classList.add('alerta');
+
+    // Comprobación para saber que tipo de alerta es
+    if (tipo == 'error') {
+        alerta.classList.add('error');
+    }
+
+    // Insertar alerta en el DOM
+    const formulario = document.querySelector('.formulario');
+    formulario.appendChild(alerta);
+
+    // Eliminar la alerta despues de 3 segundos
+    setTimeout(() => {
+        alerta.remove();
+    }, 3000);
 }
