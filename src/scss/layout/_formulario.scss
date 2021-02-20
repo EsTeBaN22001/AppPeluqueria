@@ -1,5 +1,5 @@
 .formulario{
-    width: 100%;
+    width: 95%;
 
     .campo{
         display: flex;
@@ -12,10 +12,14 @@
         }
     
         input{
-            flex: 1;
+            flex: 1 0 0;
             padding: $separacion/4;
             border-radius: 1rem;
             border: none;
+            max-width: 95%;
+            &:last-of-type{
+                width: 0%;
+            }
         }
     }
 }
