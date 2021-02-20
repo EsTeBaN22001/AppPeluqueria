@@ -11,11 +11,11 @@ body {
 }
 p {
     color: $blanco;
-    font-size: 2rem;
+    font-size: 1.7rem;
 }
 .contenedor {
     width: 95%;
-    max-width: 1200px;
+    max-width: 95%;
     margin: 0 auto;
 }
 
@@ -36,12 +36,30 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 4rem;
-}
-h2 {
     font-size: 3.6rem;
 }
+h2 {
+    font-size: 3.2rem;
+}
 h3 {
-    font-size: 3rem;
+    font-size: 2.5rem;
     text-align: center;
+}
+
+// Media queries para cambiar tamaño de fuentes cuando es un dispositivo pequeño
+
+@media (max-width: $telefono){
+    h1 {
+        font-size: 2.5rem;
+    }
+    h2 {
+        font-size: 2.2rem;
+    }
+    h3 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    p {
+        font-size: 1.4rem;
+    }
 }
