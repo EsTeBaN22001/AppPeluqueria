@@ -258,6 +258,67 @@ function mostrarResumen(){
 
         return;
     }
+
+    // Mostrar resumen
+
+    const headingCita = document.createElement('h3');
+    headingCita.textContent = 'Resumen de la cita';
+
+    const nombreCita = document.createElement('p');
+    nombreCita.innerHTML = `<span>Nombre:</span> ${nombre}`;
+    
+    const fechaCita = document.createElement('p');
+    fechaCita.innerHTML = `<span>Fecha:</span> ${fecha}`;
+
+    const horaCita = document.createElement('p');
+    horaCita.innerHTML = `<span>Hora:</span> ${hora}`;
+
+    const serviciosCita = document.createElement('div');
+    serviciosCita.classList.add('resumen-servicios');
+
+    const headingServicios = document.createElement('h3');
+    headingServicios.textContent = 'Resumen de los servicios';
+
+    serviciosCita.appendChild(headingServicios);
+
+    // Iterar sobre el arreglo de servicios
+    let cantidad = 0;
+
+    servicios.forEach(servicio =>{
+        // Destructuring de servicio
+        const {nombre, precio} = servicio;
+        const contenedorServicio = document.createElement('div');
+        contenedorServicio.classList.add('contenedor-servicio');
+
+        const nombreServicio = document.createElement('p');
+        nombreServicio.textContent = nombre;
+
+        const precioServicio = document.createElement('p');
+        precioServicio.textContent = precio;
+        precioServicio.classList.add('precio');
+
+        const totalServicio = precio.split('$');
+        cantidad += parseInt(totalServicio[1].trim());
+        
+        // Colocar nombre y precio en el div
+        contenedorServicio.appendChild(nombreServicio);
+        contenedorServicio.appendChild(precioServicio);
+        
+        serviciosCita.appendChild(contenedorServicio);
+    })
+
+    resumenDiv.appendChild(headingCita);
+    resumenDiv.appendChild(nombreCita);
+    resumenDiv.appendChild(fechaCita); 
+    resumenDiv.appendChild(horaCita);
+
+    resumenDiv.appendChild(serviciosCita);
+
+    const cantidadPagar = document.createElement('p');
+    cantidadPagar.classList.add('total');
+    cantidadPagar.innerHTML = `<span>Total a pagar:</span> $${cantidad}`;
+
+    resumenDiv.appendChild(cantidadPagar);
 }
 
 function nombreCita(){
