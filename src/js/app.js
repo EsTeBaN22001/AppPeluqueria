@@ -38,6 +38,9 @@ function iniciarApp(){
 
     // Deshabilitar dias anteriores
     deshabilitarFechaAnterior();
+
+    // Almacena la hora de la cita en el objeto
+    horaCita();
 }
 
 function mostrarSeccion(){
@@ -201,8 +204,6 @@ function paginaSiguiente(){
         pagina++;
         
         botonesPaginador();
-        console.log(pagina);
-
     });
 }
 
@@ -212,8 +213,6 @@ function paginaAnterior(){
         pagina--;
 
         botonesPaginador();
-        console.log(pagina);
-        
     });
 }
 
@@ -226,6 +225,7 @@ function botonesPaginador() {
     }else if (pagina === 3) {
         paginaSiguiente.classList.add('ocultar');
         paginaAnterior.classList.remove('ocultar');
+        mostrarResumen();
     }else{
         paginaAnterior.classList.remove('ocultar');
         paginaSiguiente.classList.remove('ocultar');
@@ -242,14 +242,21 @@ function mostrarResumen(){
     // Seleccionar la sección de resumen
     const resumenDiv = document.querySelector('.contenido-resumen');
 
+    // Limpiar HTML previo
+    while (resumenDiv.firstChild) {
+        resumenDiv.removeChild(resumenDiv.firstChild);
+    }
+
     // Validación de objeto
     if (Object.values(cita).includes('')) {
         const noServicios = document.createElement('p');
-        noServicios.classList.add('invalidar-cita');
         noServicios.textContent = 'Faltan datos de servicios, hora, fecha  o nombre';
-
+        noServicios.classList.add('invalidar-cita');
+        
         // Agregar noServicios a ResumenDiv
         resumenDiv.appendChild(noServicios);
+
+        return;
     }
 }
 
@@ -327,5 +334,26 @@ function deshabilitarFechaAnterior(){
     const fechaDeshabilitar = `${year}-${mes < 10 ? `0${mes}` : mes}-${dia}`;
 
     fechaInput.min = fechaDeshabilitar;
-    console.log(fechaDeshabilitar);
+}
+
+function horaCita() {
+    const inputHora = document.querySelector('#hora');
+    inputHora.addEventListener('input', e => {
+
+        const horaCita = e.target.value;
+        const hora = horaCita.split(':');
+
+        if(hora[0] < 10 || hora[0] > 18 ) {
+            setTimeout(() => {
+                inputHora.value = '';
+            }, 0);
+            mostrarAlerta('Hora no válida', 'error');
+        } else {
+            const alerta = document.querySelector('.alerta');
+            if (alerta) {
+                alerta.remove();
+            }
+            cita.hora = horaCita;
+        }
+    });
 }
